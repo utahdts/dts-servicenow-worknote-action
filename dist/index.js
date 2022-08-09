@@ -9723,13 +9723,11 @@ async function run() {
     core.info(
       `Approver: ${lastAttempt.user.login}, comment: ${lastAttempt.comment}`
     );
-    let notes = `🚀🚀🚀
+    let notes = `🚀🚀🚀 [code]<h3>New Deployment</h3>[/code] 🚀🚀🚀
 
-    [code]<h3>Deployment</h3>
+    [code]This item has been deployed using the <strong>${lastAttempt.environments[0].name}</strong> environment via a <a href="https://github.com/${owner}/${repo}/actions/runs/${runId}">GitHub Action</a> pipeline.[/code]
 
-    This item has been deployed using the <strong>${lastAttempt.environments[0].name}</strong> environment via a <a href="https://github.com/${owner}/${repo}/actions/runs/${runId}">GitHub Action</a> pipeline.
-
-    It was <strong>${lastAttempt.state}</strong> by the GitHub user <a href="${lastAttempt.user.html_url}">${approver}</a>.[/code]`;
+    [code]It was <strong>${lastAttempt.state}</strong> by the GitHub user <a href="${lastAttempt.user.html_url}">${approver}</a>.[/code]`;
     if (comments.length > 0) {
       notes += `
 
@@ -9737,10 +9735,6 @@ async function run() {
 
       [code]<pre>${comments}</pre>[/code]`;
     }
-
-    notes += `
-
-    🚀🚀🚀 `;
 
     const response = await httpClient.patchJson(url, { work_notes: notes });
     core.info(`Service Now api response: ${response.statusCode}`);
