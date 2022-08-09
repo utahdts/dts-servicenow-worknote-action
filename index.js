@@ -57,7 +57,7 @@ async function run() {
     core.info(
       `Approver: ${lastAttempt.user.login}, comment: ${lastAttempt.comment}`
     );
-    let notes = `🚀🚀🚀 [code]<h3>New Deployment</h3>[/code] 🚀🚀🚀
+    let notes = `[code]<h2>🚀🚀🚀 New Deployment 🚀🚀🚀</h2>[/code]
 
     [code]This item has been deployed using the <strong>${lastAttempt.environments[0].name}</strong> environment via a <a href="https://github.com/${owner}/${repo}/actions/runs/${runId}">GitHub Action</a> pipeline.[/code]
 
