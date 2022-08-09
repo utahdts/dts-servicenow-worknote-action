@@ -52,18 +52,20 @@ async function run() {
     const approver = lastAttempt.user.login;
     const comments = lastAttempt.comment;
 
-    core.startGroup('Send to ServiceNow');
+    core.startGroup('Send work note to Service Now');
 
     core.info(
       `Approver: ${lastAttempt.user.login}, comment: ${lastAttempt.comment}`
     );
-    let notes = `This item has been deployed using the ${lastAttempt.environments[0].name} environment. It was ${lastAttempt.state} by the GitHub user <a href="${lastAttempt.user.html_url}>${approver}</a>.`;
+    let notes = `This item has been deployed using the ${lastAttempt.environments[0].name} environment. It was ${lastAttempt.state} by the GitHub user ${approver} (${lastAttempt.user.html_url}).`;
     if (comments.length > 0) {
-      notes += ` The following comment was added with the approval: ${comments}`;
+      notes += `
+
+      The following comment was added with the approval: ${comments}`;
     }
 
     const response = await httpClient.patchJson(url, { work_notes: notes });
-    core.info(`Response ${response.statusCode}`);
+    core.info(`Service Now api response: ${response.statusCode}`);
 
     if (response.statusCode != 200) {
       core.setFailed(
