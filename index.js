@@ -29,10 +29,9 @@ async function run() {
     const octokit = github.getOctokit(token);
     const owner = core.getInput('repositoryOwner');
     const repo = core.getInput('repository');
-    const runId = github.context.runNumber;
+    const runId = github.context.runId;
 
-    core.info(`Run context: ${JSON.stringify(github.context)}`);
-    core.info(`Run Number: ${github.context.runNumber}`);
+    core.info(`Run Id: ${github.context.runId}`);
 
     const { data } = await octokit.request(
       `GET /repos/${owner}/${repo}/actions/runs/${runId}/approvals`,
