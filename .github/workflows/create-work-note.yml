@@ -1,0 +1,35 @@
+name: Create Work Note
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  workflow_dispatch:
+
+concurrency:
+  group: '${{ github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  deploy-prod:
+    name: Fake deployment with review
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: prod
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy
+        run: echo deploy!
+
+  post-work-note:
+    name: Audit deployment
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: prod
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create deployment notification
+        uses: ugrc/service-now-worknote-action@HEAD

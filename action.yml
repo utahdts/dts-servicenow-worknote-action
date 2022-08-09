@@ -1,13 +1,27 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'Service Now work note deployment notification'
+description: 'Creates a new work note for a specific item in a table whenever a deployment is reviewed and published.'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  repoToken:
+    description: 'the github token for the runner'
     required: true
-    default: '1000'
-outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+    default: '${{ github.token }}'
+  username:
+    description: 'the username of the credentials with REST API access for basic authentication'
+    required: true
+  password:
+    description: 'the password of the credentials with REST API access for basic authentication'
+    required: true
+  instance-name:
+    description: 'the instance name for the service now url implementation'
+    required: true
+    default: 'utahdev3'
+  table-name:
+    description: 'the table name that contains the system id item to update'
+    required: true
+    default: 'cmdb_ci_business_app'
+  system-id:
+    description: 'the specific sys-id (row) item to write a work note for'
+    required: true
 runs:
   using: 'node16'
   main: 'dist/index.js'
