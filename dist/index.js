@@ -9697,7 +9697,8 @@ async function run() {
     const repo = core.getInput('repository');
     const runId = github.context.runNumber;
 
-    core.info(`Run ID: ${runId}`);
+    core.info(`Run context: ${JSON.stringify(github.context)}`);
+    core.info(`Run Number: ${github.context.runNumber}`);
 
     const { data } = await octokit.request(
       `GET /repos/${owner}/${repo}/actions/runs/${runId}/approvals`,
