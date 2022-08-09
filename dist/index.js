@@ -9732,7 +9732,7 @@ async function run() {
       notes += `
 
       The following comment was added with the approval
-      [code]<blockquote>${comments}</blockquote>[/code]`;
+      [code]<pre>${comments}</pre>[/code]`;
     }
 
     notes += `
