@@ -59,11 +59,14 @@ async function run() {
     );
     let notes = `🚀🚀🚀
 
-    This item has been deployed using the ${lastAttempt.environments[0].name} environment via a GitHub Action (https://github.com/${owner}/${repo}/actions/runs/${runId}). It was ${lastAttempt.state} by the GitHub user ${approver} (${lastAttempt.user.html_url}).`;
+    This item has been deployed using the ${lastAttempt.environments[0].name} environment via a GitHub Action (https://github.com/${owner}/${repo}/actions/runs/${runId}).
+
+    It was ${lastAttempt.state} by the GitHub user ${approver} (${lastAttempt.user.html_url}).`;
     if (comments.length > 0) {
       notes += `
 
-      The following comment was added with the approval: ${comments}`;
+      The following comment was added with the approval
+      > ${comments}`;
     }
 
     notes += `
