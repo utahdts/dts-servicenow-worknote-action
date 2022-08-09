@@ -9671,6 +9671,7 @@ const auth = __nccwpck_require__(5526);
 
 async function run() {
   try {
+    core.startGroup('Get inputs');
     const token = core.getInput('repoToken', { required: true });
     const username = core.getInput('username', { required: true });
     const password = core.getInput('password', { required: true });
@@ -9684,17 +9685,24 @@ async function run() {
     core.setSecret(systemId);
     core.setSecret(tableName);
     core.setSecret(instanceName);
+    core.endGroup();
 
+    core.startGroup('Create http client');
     const httpClient = new http.HttpClient(
       'service-now-work-notes-github-action',
       [new auth.BasicCredentialHandler(username, password)]
     );
+    core.endGroup();
 
     const url = `https://${instanceName}.service-now.com/api/now/table/${tableName}/${systemId}`;
 
+    core.startGroup('Create octokit');
     const octokit = github.getOctokit(token);
-    const owner = core.getInput('repositoryOwner');
-    const repo = core.getInput('repository');
+    core.endGroup();
+
+    core.startGroup('Get run approvals');
+    const owner = github.context.payload.repository.organization;
+    const repo = github.context.payload.repository.name;
     const runId = github.context.runId;
 
     core.info(`Run Id: ${github.context.runId}`);
@@ -9715,7 +9723,9 @@ async function run() {
 
     const approver = lastAttempt.user.login;
     const comments = lastAttempt.comment;
+    core.endGroup();
 
+    core.startGroup('Send to ServiceNow');
     let notes = `This item has been deployed and approved by ${approver}.`;
     if (comments.length > 0) {
       notes += ` The following comments were added to the approval: ${comments}`;
@@ -9727,6 +9737,7 @@ async function run() {
         'request failed:' + response.statusCode + ',' + response.result
       );
     }
+    core.endGroup();
   } catch (error) {
     core.setFailed(error.message);
   }
