@@ -9723,16 +9723,16 @@ async function run() {
     core.info(
       `Approver: ${lastAttempt.user.login}, comment: ${lastAttempt.comment}`
     );
-    let notes = `🚀🚀🚀
+    let notes = `[code]🚀🚀🚀
 
-    This item has been deployed using the ${lastAttempt.environments[0].name} environment via a GitHub Action (https://github.com/${owner}/${repo}/actions/runs/${runId}).
+    This item has been deployed using the <code>${lastAttempt.environments[0].name}</code> environment via this <a href="https://github.com/${owner}/${repo}/actions/runs/${runId}">GitHub Action</a> pipeline.
 
-    It was ${lastAttempt.state} by the GitHub user ${approver} (${lastAttempt.user.html_url}).`;
+    It was <strong>${lastAttempt.state}</strong by the GitHub user <a href="${lastAttempt.user.html_url}">${approver}</a>.[/code]`;
     if (comments.length > 0) {
       notes += `
 
       The following comment was added with the approval
-      > ${comments}`;
+      [code]<blockquote>${comments}</blockquote>[/code]`;
     }
 
     notes += `
