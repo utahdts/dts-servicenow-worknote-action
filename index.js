@@ -65,10 +65,12 @@ async function run() {
       notes += ` The following comments were added to the approval: ${comments}`;
     }
 
-    const response = httpClient.patchJson(url, { work_notes: notes });
+    const response = await httpClient.patchJson(url, { work_notes: notes });
+    core.info(`Response ${response.statusCode}`);
+
     if (response.statusCode != 200) {
       core.setFailed(
-        'request failed:' + response.statusCode + ',' + response.result
+        `request failed:${response.statusCode}, ${response.result}`
       );
     }
     core.endGroup();
