@@ -24,7 +24,7 @@ jobs:
         run: echo deploy!
 
       - name: Create deployment notification
-        uses: agrc/service-now-worknote-action@HEAD
+        uses: agrc/service-now-worknote-action@main
         with:
           username: ${{ secrets.SN_USERNAME }}
           password: ${{ secrets.SN_PASSWORD }}
