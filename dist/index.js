@@ -9671,7 +9671,6 @@ const auth = __nccwpck_require__(5526);
 
 async function run() {
   try {
-    core.startGroup('Get inputs');
     const token = core.getInput('repoToken', { required: true });
     const username = core.getInput('username', { required: true });
     const password = core.getInput('password', { required: true });
@@ -9685,20 +9684,15 @@ async function run() {
     core.setSecret(systemId);
     core.setSecret(tableName);
     core.setSecret(instanceName);
-    core.endGroup();
 
-    core.startGroup('Create http client');
     const httpClient = new http.HttpClient(
       'service-now-work-notes-github-action',
       [new auth.BasicCredentialHandler(username, password)]
     );
-    core.endGroup();
 
     const url = `https://${instanceName}.service-now.com/api/now/table/${tableName}/${systemId}`;
 
-    core.startGroup('Create octokit');
     const octokit = github.getOctokit(token);
-    core.endGroup();
 
     core.startGroup('Get run approvals');
     const owner = github.context.payload.repository.organization;
@@ -9716,19 +9710,22 @@ async function run() {
       }
     );
 
-    core.info(`Approvals: ${JSON.stringify(data)}`);
-    const lastAttempt = data[0];
+    core.info(`Approvals: ${data.length}`);
+    core.endGroup();
 
-    core.info(lastAttempt.user.login, lastAttempt.comment);
+    const lastAttempt = data[0];
 
     const approver = lastAttempt.user.login;
     const comments = lastAttempt.comment;
-    core.endGroup();
 
     core.startGroup('Send to ServiceNow');
-    let notes = `This item has been deployed and approved by ${approver}.`;
+
+    core.info(
+      `Approver: ${lastAttempt.user.login}, comment: ${lastAttempt.comment}`
+    );
+    let notes = `This item has been deployed using the ${lastAttempt.environments[0].name} environment. It was ${lastAttempt.state} by the GitHub user <a href="${lastAttempt.user.html_url}>${approver}</a>.`;
     if (comments.length > 0) {
-      notes += ` The following comments were added to the approval: ${comments}`;
+      notes += ` The following comment was added with the approval: ${comments}`;
     }
 
     const response = await httpClient.patchJson(url, { work_notes: notes });
