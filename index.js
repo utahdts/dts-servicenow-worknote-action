@@ -30,7 +30,9 @@ async function run() {
 
     core.startGroup('Querying for run approvals');
 
-    const owner = github.context.payload.repository.organization;
+    const owner =
+      github.context.payload.repository.organization ??
+      github.context.payload.repository.owner.login;
     const repo = github.context.payload.repository.name;
     const runId = github.context.runId;
 
