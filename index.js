@@ -28,12 +28,16 @@ async function run() {
 
     const octokit = github.getOctokit(token);
 
-    core.startGroup('Get run approvals');
+    core.startGroup('Querying for run approvals');
+
     const owner = github.context.payload.repository.organization;
     const repo = github.context.payload.repository.name;
     const runId = github.context.runId;
 
-    core.info(`Run Id: ${github.context.runId}`);
+    core.info(`Action run Id: ${github.context.runId}`);
+    core.info(
+      `API request: GET /repos/${owner}/${repo}/actions/runs/${runId}/approvals`
+    );
 
     const { data } = await octokit.request(
       `GET /repos/${owner}/${repo}/actions/runs/${runId}/approvals`,
@@ -45,18 +49,19 @@ async function run() {
     );
 
     core.info(`Approvals: ${data.length}`);
-    core.endGroup();
 
     const lastAttempt = data[0];
 
     const approver = lastAttempt.user.login;
     const comments = lastAttempt.comment;
 
-    core.startGroup('Send work note to Service Now');
-
     core.info(
       `Approver: ${lastAttempt.user.login}, comment: ${lastAttempt.comment}`
     );
+    core.endGroup();
+
+    core.startGroup('Sending work note to Service Now');
+
     let notes = `[code]<h2>🚀🚀🚀 New Deployment 🚀🚀🚀</h2>[/code]
     [code]This item has been deployed using the <strong>${lastAttempt.environments[0].name}</strong> environment via a <a href="https://github.com/${owner}/${repo}/actions/runs/${runId}">GitHub Action</a> pipeline.[/code]
 
@@ -68,6 +73,8 @@ async function run() {
 
       [code]<pre>${comments}</pre>[/code]`;
     }
+
+    core.info(`Sending: ${notes}`);
 
     const response = await httpClient.patchJson(url, { work_notes: notes });
     core.info(`Service Now api response: ${response.statusCode}`);
