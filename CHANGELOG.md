@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.1](https://github.com/agrc/service-now-worknote-action/compare/v1.0.0...v1.0.1) (2022-09-19)
+
+
+### 🐛 Bug Fixes
+
+* add another method to find org name ([a8083ec](https://github.com/agrc/service-now-worknote-action/commit/a8083ecaae1f26830924cd6de3f55315254928a1))
+
+
+### 📖 Documentation Improvements
+
+* add image ([f6b1b3b](https://github.com/agrc/service-now-worknote-action/commit/f6b1b3bb923942077fbc0a8cafbd923fcfed7aeb))
+* replace template docs ([23bce45](https://github.com/agrc/service-now-worknote-action/commit/23bce45e716e9f4cb22c32af26b6ab432aed2ec9))
+
 ## [1.0.1-0](https://github.com/agrc/service-now-worknote-action/compare/v1.0.0...v1.0.1-0) (2022-09-19)
 
 
