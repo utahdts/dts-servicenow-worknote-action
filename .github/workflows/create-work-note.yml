@@ -29,3 +29,21 @@ jobs:
           username: ${{ secrets.SN_USERNAME }}
           password: ${{ secrets.SN_PASSWORD }}
           system-id: ${{ secrets.SN_SYS_ID }}
+
+  deploy-dev:
+    name: Fake deployment with review
+    if: github.ref == 'refs/heads/dev'
+    environment:
+      name: prod
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy
+        run: echo deploy!
+
+      - name: Create deployment notification
+        uses: agrc/service-now-worknote-action@dev
+        with:
+          username: ${{ secrets.SN_USERNAME }}
+          password: ${{ secrets.SN_PASSWORD }}
+          system-id: ${{ secrets.SN_SYS_ID }}
