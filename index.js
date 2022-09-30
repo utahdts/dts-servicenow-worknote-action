@@ -5,7 +5,7 @@ const auth = require('@actions/http-client/lib/auth');
 
 async function run() {
   try {
-    const token = core.getInput('repoToken', { required: true });
+    const token = core.getInput('repo-token', { required: true });
     const username = core.getInput('username', { required: true });
     const password = core.getInput('password', { required: true });
     const systemId = core.getInput('system-id', { required: true });

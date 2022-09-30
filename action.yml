@@ -1,7 +1,7 @@
 name: 'Service Now work note deployment notification'
 description: 'Creates a new work note for a specific item in a table whenever a deployment is reviewed and published.'
 inputs:
-  repoToken:
+  repo-token:
     description: 'the github token for the runner'
     required: true
     default: '${{ github.token }}'
