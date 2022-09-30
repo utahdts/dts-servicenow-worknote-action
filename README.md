@@ -9,16 +9,6 @@ A comment is posted to the table with the reviewers email and any comments.
 
 <img width="856" alt="image" src="https://user-images.githubusercontent.com/325813/191078116-557707db-594a-4514-970f-be28e59eb634.png">
 
-## Configure this action
-
-This action requires 5 Action secrets.
-
-- SN_INSTANCE - the sub address to `https://{SN_INSTANCE}.service-now.com`
-- SN_TABLE - the parent table to write to
-- SN_SYS_ID - the child table to write to
-- SN_USERNAME - the service account name
-- SN_PASSWORD - the service account password
-
 ## Usage
 
 You can now consume the action by referencing the v1 branch
@@ -27,7 +17,10 @@ You can now consume the action by referencing the v1 branch
 - name: Create deployment notification
   uses: agrc/service-now-worknote-action@v1
   with:
+    repo-token: ${{ github.token }}
     username: ${{ secrets.SN_USERNAME }}
     password: ${{ secrets.SN_PASSWORD }}
-    system-id: ${{ secrets.SN_SYS_ID }
+    instance-name: ${{ secrets.SN_INSTANCE }}
+    table-name: ${{ secrets.SN_TABLE }}
+    system-id: ${{ secrets.SN_SYS_ID }}
 ```
