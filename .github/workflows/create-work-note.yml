@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   deploy-prod:
-    name: Fake deployment with review
+    name: Fake prod deployment with review
     if: github.ref == 'refs/heads/main'
     environment:
       name: prod
@@ -26,12 +26,15 @@ jobs:
       - name: Create deployment notification
         uses: agrc/service-now-worknote-action@main
         with:
+          repo-token: ${{ github.token }}
           username: ${{ secrets.SN_USERNAME }}
           password: ${{ secrets.SN_PASSWORD }}
+          instance-name: ${{ secrets.SN_INSTANCE }}
+          table-name: ${{ secrets.SN_TABLE }}
           system-id: ${{ secrets.SN_SYS_ID }}
 
   deploy-dev:
-    name: Fake deployment with review
+    name: Fake dev deployment with review
     if: github.ref == 'refs/heads/dev'
     environment:
       name: prod
@@ -44,6 +47,9 @@ jobs:
       - name: Create deployment notification
         uses: agrc/service-now-worknote-action@dev
         with:
+          repo-token: ${{ github.token }}
           username: ${{ secrets.SN_USERNAME }}
           password: ${{ secrets.SN_PASSWORD }}
+          instance-name: ${{ secrets.SN_INSTANCE }}
+          table-name: ${{ secrets.SN_TABLE }}
           system-id: ${{ secrets.SN_SYS_ID }}
