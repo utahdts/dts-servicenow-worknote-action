@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3-0](https://github.com/agrc/service-now-worknote-action/compare/v1.0.2...v1.0.3-0) (2022-10-03)
+
+
+### 🐛 Bug Fixes
+
+* handle no approvals found ([c6b15b8](https://github.com/agrc/service-now-worknote-action/commit/c6b15b81b77b65db4a51f5a6ec52d18d66db333b))
+
 ## [1.0.2](https://github.com/agrc/service-now-worknote-action/compare/v1.0.1...v1.0.2) (2022-10-03)
 
 
