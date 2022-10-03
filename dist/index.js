@@ -9719,7 +9719,9 @@ async function run() {
     core.info(`Approvals: ${data.length}`);
 
     if (data.length === 0) {
-      core.setFailed(`No approvals found for runId: ${runId}. Does this environment require approvals? https://github.com/${owner}/${repo}/settings/environments <a href="https://github.com/${owner}/${repo}/settings/environments">link</a> [markdown](https://github.com/${owner}/${repo}/settings/environments)`);
+      core.setFailed(`No approvals found for runId: ${runId}. Does this environment require approvals? Check your environments in settings: https://github.com/${owner}/${repo}/settings/environments`);
+
+      return;
     }
 
     const lastAttempt = data[0];
