@@ -53,7 +53,7 @@ async function run() {
     core.info(`Approvals: ${data.length}`);
 
     if (data.length === 0) {
-      core.setFailed(`No approvals found for runId: ${runId}. Does this environment require approvals? Check your environments here: https://github.com/${owner}/${repo}/settings/environments`);
+      core.setFailed(`No approvals found for runId: ${runId}. Does this environment require approvals? Check your environments in settings: https://github.com/${owner}/${repo}/settings/environments`);
 
       return;
     }
