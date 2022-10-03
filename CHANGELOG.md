@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3-1](https://github.com/agrc/service-now-worknote-action/compare/v1.0.3-0...v1.0.3-1) (2022-10-03)
+
+
+### 🐛 Bug Fixes
+
+* add return and remove link formatting ([701b1c9](https://github.com/agrc/service-now-worknote-action/commit/701b1c999977b9ea1b2859e00de26dce53c6dd16))
+
 ## [1.0.3-0](https://github.com/agrc/service-now-worknote-action/compare/v1.0.2...v1.0.3-0) (2022-10-03)
 
 
