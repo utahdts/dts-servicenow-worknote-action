@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.4](https://github.com/agrc/service-now-worknote-action/compare/v1.0.3...v1.0.4) (2022-10-04)
+
+
+### 🐛 Bug Fixes
+
+* update concurrency and file name ([70fe8ba](https://github.com/agrc/service-now-worknote-action/commit/70fe8ba424df956197f2a33ba1d0d5dbe2f2a34d))
+
+
+### 🌲 Dependencies
+
+* october dependency updates ([cab1933](https://github.com/agrc/service-now-worknote-action/commit/cab1933ca1624752d8a7ffa928d595665d587deb))
+
 ## [1.0.3](https://github.com/agrc/service-now-worknote-action/compare/v1.0.2...v1.0.3) (2022-10-03)
 
 
