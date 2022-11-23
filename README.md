@@ -13,6 +13,31 @@ A comment is posted to the table with the reviewers email and any comments.
 
 You can now consume the action by referencing the v1 branch
 
+### Inputs
+* repo-token
+  * description: 'the github token for the runner'
+  * required: true
+* username:
+  * description: 'the username of the credentials with REST API access for basic authentication'
+  * required: true
+* password:
+  * description: 'the password of the credentials with REST API access for basic authentication'
+  * required: true
+* instance-name:
+  * description: 'the sub address to `https://{SN_INSTANCE}.service-now.com`'
+  * required: true
+* table-name:
+  * description: 'the table name that contains the system id item to update'
+  * required: true
+* system-id:
+  * description: 'the specific sys-id (row) item to write a work note for'
+  * required: true
+* check-approvals:
+  * description: 'default: true, false skips approvals'
+  * required: false
+
+### Example
+
 ```yaml
 - name: Create deployment notification
   uses: agrc/service-now-worknote-action@v1
