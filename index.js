@@ -50,6 +50,7 @@ async function run() {
     core.setSecret(tableName);
     core.setSecret(instanceName);
 
+    core.info(`before httpclient`);
     const httpClient = new http.HttpClient(
       'service-now-work-notes-github-action',
       [new auth.BasicCredentialHandler(username, password)]
@@ -57,6 +58,7 @@ async function run() {
 
     const url = `https://${instanceName}.service-now.com/api/now/table/${tableName}/${systemId}`;
 
+    core.info(`before octokit`);
     const octokit = github.getOctokit(token);
     
     let notes;
@@ -118,7 +120,7 @@ async function run() {
     }
     core.endGroup();
   } catch (error) {
-    core.setFailed(error.message);
+    core.setFailed(error);
   }
 }
 
