@@ -50,6 +50,7 @@ async function run() {
     core.setSecret(tableName);
     core.setSecret(instanceName);
 
+    core.startGroup('🔔 debug check');
     core.info(`before httpclient`);
     const httpClient = new http.HttpClient(
       'service-now-work-notes-github-action',
@@ -64,6 +65,7 @@ async function run() {
     let notes;
 
     core.info(`checkApprovals: ${checkApprovals}`);
+    core.endGroup();
     if (checkApprovals === true) {
       core.startGroup('🔔 Querying for run approvals');
 
