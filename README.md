@@ -23,4 +23,5 @@ You can now consume the action by referencing the v1 branch
     instance-name: ${{ secrets.SN_INSTANCE }}
     table-name: ${{ secrets.SN_TABLE }}
     system-id: ${{ secrets.SN_SYS_ID }}
+    check-approvals: false # optional, default: true
 ```
