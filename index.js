@@ -61,7 +61,8 @@ async function run() {
     
     let notes;
 
-    if (checkApprovals) {
+    console.log('checkApprovals', checkApprovals);
+    if (checkApprovals === true) {
       core.startGroup('🔔 Querying for run approvals');
 
       core.info(`Action run Id: ${github.context.runId}`);
