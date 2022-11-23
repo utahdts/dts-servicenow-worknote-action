@@ -41,7 +41,7 @@ async function run() {
     const systemId = core.getInput('system-id', {required: true});
     const tableName = core.getInput('table-name', {required: false});
     const instanceName = core.getInput('instance-name', {required: false});
-    const checkApprovals = core.getBooleanInput('check-approvals', {required: false}) || true;
+    const checkApprovals = core.getBooleanInput('check-approvals');
 
     core.setSecret(token);
     core.setSecret(username);
@@ -61,7 +61,7 @@ async function run() {
     
     let notes;
 
-    console.log('checkApprovals', checkApprovals);
+    core.info(`checkApprovals: ${checkApprovals}`);
     if (checkApprovals === true) {
       core.startGroup('🔔 Querying for run approvals');
 
