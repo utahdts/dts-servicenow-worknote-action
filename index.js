@@ -41,7 +41,7 @@ async function run() {
     const systemId = core.getInput('system-id', {required: true});
     const tableName = core.getInput('table-name', {required: false});
     const instanceName = core.getInput('instance-name', {required: false});
-    const checkApprovals = core.getInput('check-approvals', {required: false}) || true;
+    const checkApprovals = core.getBooleanInput('check-approvals', {required: false}) || true;
 
     core.setSecret(token);
     core.setSecret(username);
