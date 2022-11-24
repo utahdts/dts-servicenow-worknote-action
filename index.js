@@ -64,9 +64,6 @@ async function run() {
     const url = `https://${instanceName}.service-now.com/api/now/table/${tableName}/${systemId}`;
     const octokit = github.getOctokit(token);
     
-    core.startGroup('🔔 debug check');
-    core.info(`checkApprovals: ${checkApprovals}`);
-    core.endGroup();
     if (checkApprovals) {
       core.startGroup('🔔 Querying for run approvals');
 
