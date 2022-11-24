@@ -20,8 +20,11 @@ inputs:
     description: 'the specific sys-id (row) item to write a work note for'
     required: true
   check-approvals:
-    description: 'default: true, false skips approvals'
+    description: 'a boolean value to control whether to check for approvals, default: true, false skips approvals'
     required: false
+  environment:
+    description: 'the environment being deployed to'
+    required: false  
 runs:
   using: 'node16'
   main: 'dist/index.js'

@@ -33,7 +33,10 @@ You can now consume the action by referencing the v1 branch
   * description: 'the specific sys-id (row) item to write a work note for'
   * required: true
 * check-approvals:
-  * description: 'default: true, false skips approvals'
+  * description: 'boolean value to control whether to check for approvals, default: true, false skips approvals'
+  * required: false
+* environment:
+  * description: 'the environment being deployed to'
   * required: false
 
 ### Example
@@ -49,4 +52,5 @@ You can now consume the action by referencing the v1 branch
     table-name: ${{ secrets.SN_TABLE }}
     system-id: ${{ secrets.SN_SYS_ID }}
     check-approvals: false # optional, default: true
+    environment: 'dev' # optional, ignored if check-approvals is true
 ```

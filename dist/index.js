@@ -9702,8 +9702,11 @@ const approval_notes = (lastAttempt) => {
   return notes;
 };
 
-const basic_notes = () => {
-  return `[code]<h2>🚀🚀🚀 New Deployment 🚀🚀🚀</h2>[/code]
+const basic_notes = (environment) => {
+  const env = environment && environment.trim().length > 0 
+    ? 'New ' + environment?.toUpperCase() + ' Deployment' 
+    : 'New Deployment';
+  return `[code]<h2>🚀🚀🚀 ${env} 🚀🚀🚀</h2>[/code]
         [code]This item has been deployed via a <a href="https://github.com/${owner}/${repo}/actions/runs/${runId}">GitHub Action</a> pipeline.[/code]
         [code]By the GitHub user ${user}.[/code]`;
 };
@@ -9723,7 +9726,9 @@ async function run() {
     const systemId = core.getInput('system-id', {required: true});
     const tableName = core.getInput('table-name', {required: false});
     const instanceName = core.getInput('instance-name', {required: false});
-    const checkApprovals = core.getBooleanInput('check-approvals');
+    const checkApprovals = core.getBooleanInput('check-approvals', {required: false}) || true;
+    const environment = core.getInput('environment', {required: false});
+    let notes;
 
     core.setSecret(token);
     core.setSecret(username);
@@ -9732,23 +9737,18 @@ async function run() {
     core.setSecret(tableName);
     core.setSecret(instanceName);
 
-    core.startGroup('🔔 debug check');
-    core.info(`before httpclient`);
     const httpClient = new http.HttpClient(
       'service-now-work-notes-github-action',
       [new auth.BasicCredentialHandler(username, password)]
     );
 
     const url = `https://${instanceName}.service-now.com/api/now/table/${tableName}/${systemId}`;
-
-    core.info(`before octokit`);
     const octokit = github.getOctokit(token);
     
-    let notes;
-
+    core.startGroup('🔔 debug check');
     core.info(`checkApprovals: ${checkApprovals}`);
     core.endGroup();
-    if (checkApprovals === true) {
+    if (checkApprovals) {
       core.startGroup('🔔 Querying for run approvals');
 
       core.info(`Action run Id: ${github.context.runId}`);
@@ -9784,9 +9784,8 @@ async function run() {
       core.endGroup();
     } else {
       core.startGroup('🔔 Building Notes');
-
       core.info(`Action run Id: ${github.context.runId}`);
-      notes = basic_notes();
+      notes = basic_notes(environment);
       core.endGroup();
     }
 
@@ -9804,7 +9803,7 @@ async function run() {
     }
     core.endGroup();
   } catch (error) {
-    core.setFailed(error);
+    core.setFailed(error.message);
   }
 }
 
